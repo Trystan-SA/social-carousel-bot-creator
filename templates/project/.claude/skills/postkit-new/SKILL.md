@@ -1,6 +1,6 @@
 ---
 name: postkit-new
-description: Draft a new post (or a series of posts) from a brief. Reads brand.md and theme.css, interviews the user for the brief, then writes posts/<slug>/ with post.json and slide HTML. Use when the user wants to create content, make a carousel, or plan a multi-post campaign.
+description: Draft a new post (or a series of posts) from a brief. Reads the brand profile from Claude Code memory plus theme.css, interviews the user for the brief, then writes posts/<slug>/ with post.json and slide HTML. Use when the user wants to create content, make a carousel, or plan a multi-post campaign.
 ---
 
 # /postkit-new — draft a post or series
@@ -10,8 +10,11 @@ match the user's brand and ship-ready HTML slides.
 
 ## Before you draft anything
 
-1. **Read `brand.md`.** If it's still the default stub (italic placeholders),
-   stop and tell the user to run `/postkit-setup` first. Don't guess brand voice.
+1. **Load the brand profile from memory.** Read every `brand_*.md` file in
+   the workspace memory directory — `brand_identity.md`, `brand_audience.md`,
+   `brand_goals.md`, `brand_voice.md`, `brand_visual.md`, `brand_hooks.md`. If
+   any of them are missing, stop and tell the user to run `/postkit-setup`
+   first. Don't guess brand voice.
 2. **Read `theme.css`.** Note the palette, fonts, and component classes
    available (`.heading-*`, `.body-*`, `.card`, `.pill`, `.tip-number`,
    `.watermark`, …). Reuse these — only add per-slide `<style>` overrides when
@@ -24,15 +27,18 @@ match the user's brand and ship-ready HTML slides.
 Ask the user for:
 
 - **Topic / angle** — what the post is about.
-- **Goal** — saves, shares, follows, clicks, sales (default: whatever `brand.md`
-  says is the primary goal).
+- **Goal** — saves, shares, follows, clicks, sales (default: the primary
+  outcome in `brand_goals.md`).
 - **Key message** — the ONE takeaway per post.
 - **Call to action** — what the viewer should do at the end.
-- **Format** — one of `9:16`, `4:5`, `1:1`, `16:9`, `3:4` (default: `9:16`).
+- **Target platform** — which platform this post is primarily for (determines
+  which handle goes in the watermark).
+- **Format** — one of `9:16`, `4:5`, `1:1`, `16:9`, `3:4` (default: whichever
+  ratio the target platform prefers, or `9:16`).
 - **Slide count** — 3–5 is ideal for a carousel.
 
 Don't ask every question if the user already gave the answer. Infer what you
-can, then confirm before drafting.
+can from the brand memories, then confirm before drafting.
 
 ## Single post vs. series
 
@@ -70,7 +76,7 @@ For each post, create `posts/<slug>/` containing:
        <div class="content flex-col gap-32">
          <!-- headings, body copy, pills, cards, tip-numbers, etc. -->
        </div>
-       <span class="watermark">@yourhandle</span>
+       <span class="watermark"><!-- see Watermark section below --></span>
      </div>
    </body>
    </html>
@@ -78,9 +84,9 @@ For each post, create `posts/<slug>/` containing:
 
 ## Slide anatomy
 
-- **Slide 1 — Hook.** Must work in <1 second. Use one of the hook formulas in
-  `brand.md`: specific number, personal failure, hot take, shocking stat,
-  myth busted. Bold type, minimal text.
+- **Slide 1 — Hook.** Must work in <1 second. Use one of the hook formulas
+  stored in `brand_hooks.md`: specific number, personal failure, hot take,
+  shocking stat, myth busted. Bold type, minimal text.
 - **Middle slides.** Each builds on the previous — no filler, no repetition.
   End each slide on an open loop (question, tease, cliffhanger) so viewers swipe.
   For listicles use `.tip-number` + `.heading-lg` + `.body-lg`.
@@ -91,10 +97,20 @@ For each post, create `posts/<slug>/` containing:
 
 Before writing any slide copy:
 
-- Match the `brand.md` voice (adjectives, do/don't lists, signature phrases).
-- Write in the primary language listed in `brand.md`.
+- Match the voice rules in `brand_voice.md` (adjectives, do/don't lists,
+  signature phrases).
+- Write in the primary language listed in `brand_identity.md`.
 - Strip filler words. Short sentences. Every word earns its place.
-- No emojis unless `brand.md` permits them.
+- No emojis unless `brand_voice.md` permits them.
+- Respect the off-limits list in `brand_hooks.md`.
+
+## Watermark
+
+Use the handle in `brand_identity.md` that matches the post's target platform.
+If the user said "this is for TikTok", use the TikTok handle; for Instagram,
+the Instagram handle; etc. If the post is not platform-specific or no
+platform-specific handle is set for that platform, fall back to the **Default
+handle** in `brand_identity.md`. Never hardcode `@yourhandle`.
 
 ## After writing
 
@@ -109,4 +125,7 @@ Tell the user:
 
 - Don't render. That's `/postkit-render`'s job.
 - Don't overwrite an existing `posts/<slug>/` — ask for a different slug.
-- Don't invent brand details that aren't in `brand.md`. Ask or mark `_(TBD)_`.
+- Don't invent brand details that aren't in the `brand_*.md` memory files.
+  Ask the user or re-run `/postkit-setup`.
+- Don't write brand state into project-root `.md` files. Memory is the source
+  of truth for the brand profile.

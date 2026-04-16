@@ -1,6 +1,6 @@
 ---
 name: postkit-review
-description: Critique a draft post against brand.md and theme.css across three lenses — strategy (hook, angle, value arc), copy (CTA, word economy, tone), and design (layout, density, rhythm, typography). Returns HIGH/MEDIUM/LOW findings. Use when the user asks to review, critique, polish, or improve a draft before rendering.
+description: Critique a draft post against the brand profile (Claude Code memory) and theme.css across three lenses — strategy (hook, angle, value arc), copy (CTA, word economy, tone), and design (layout, density, rhythm, typography). Returns HIGH/MEDIUM/LOW findings. Use when the user asks to review, critique, polish, or improve a draft before rendering.
 ---
 
 # /postkit-review — three-lens critique
@@ -16,7 +16,10 @@ apply them.
 
 1. The target post folder (default: most recently modified `posts/<slug>/`).
    If ambiguous, ask.
-2. `brand.md` at the project root — voice, audience, goals, do/don't.
+2. **The brand profile in memory** — read every `brand_*.md` file:
+   `brand_identity.md`, `brand_audience.md`, `brand_goals.md`, `brand_voice.md`,
+   `brand_visual.md`, `brand_hooks.md`. If any are missing, stop and send the
+   user to `/postkit-setup`.
 3. `theme.css` at the project root — palette, tokens, component classes.
 4. Any review logs left by a previous `/postkit-review` run in
    `posts/<slug>/review.md` — don't repeat findings the user already addressed.
@@ -35,8 +38,10 @@ Do all three in the same response. Don't spawn sub-agents.
   story vs. hot take)?
 - **Format fit.** Right slide count? Too much padding, or too rushed?
 - **Value arc.** Does each slide build on the previous? Any filler?
-- **Audience fit.** Will the segment in `brand.md` actually care? Right level?
-- **Goal alignment.** Does the CTA match the primary goal in `brand.md`?
+- **Audience fit.** Will the segment in `brand_audience.md` actually care?
+  Right level?
+- **Goal alignment.** Does the CTA match the primary outcome in
+  `brand_goals.md`?
 
 ### 2. Copy
 
@@ -45,7 +50,7 @@ Do all three in the same response. Don't spawn sub-agents.
 - **Word economy.** Any sentence that can shrink without losing meaning?
 - **Slide transitions.** Do slide endings push the reader to swipe?
 - **Emotional triggers.** Does the copy hit a real feeling, or play it safe?
-- **Tone consistency.** Does every slide match the voice in `brand.md`? Flag
+- **Tone consistency.** Does every slide match the voice in `brand_voice.md`? Flag
   anything that drifts corporate / cutesy / jargon-heavy.
 
 ### 3. Design

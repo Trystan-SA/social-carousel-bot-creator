@@ -28,12 +28,11 @@ src/
   formats.js                         Aspect-ratio → pixel dimensions
 templates/project/                   Scaffolded verbatim into user's ./postkit/
   .claude/skills/
-    postkit-setup/SKILL.md           Brand intake → writes brand.md + theme.css
+    postkit-setup/SKILL.md           Brand intake → saves brand_*.md to Claude memory + updates theme.css
     postkit-new/SKILL.md             Draft one post or a series
     postkit-render/SKILL.md          Shells out to `npx postkit render`
     postkit-review/SKILL.md          Strategy + copy + design critique
   theme.css                          Default design system
-  brand.md                           Stub; filled by /postkit-setup
   CLAUDE.md                          Guide used by Claude inside user's workspace
   gitignore                          Renamed to .gitignore on copy
 examples/
@@ -58,8 +57,9 @@ examples/
 When a user re-runs `npx postkit`:
 
 - **Managed** (always overwritten): `.claude/skills/*`
-- **User-owned** (kept if present, created if missing): `theme.css`, `brand.md`,
-  `CLAUDE.md`, `.gitignore`
+- **User-owned** (kept if present, created if missing): `theme.css`, `CLAUDE.md`, `.gitignore`
+- **Lives outside the project tree** (Claude Code manages it): the per-workspace
+  memory directory where `/postkit-setup` persists the brand profile
 - **Always ensured to exist**: `posts/`, `assets/` (with `.gitkeep`)
 
 If you add a new template file, decide which bucket it belongs in and wire it

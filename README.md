@@ -29,25 +29,29 @@ workflow lives in Claude skills.
 ```
 postkit/
 ├── .claude/skills/
-│   ├── postkit-setup/      brand/voice/visual intake → brand.md
-│   ├── postkit-new/        draft a post or series (reads brand.md + theme.css)
+│   ├── postkit-setup/      brand/voice/visual intake → saves to Claude memory
+│   ├── postkit-new/        draft a post or series (reads brand memory + theme.css)
 │   ├── postkit-render/     shell out to `npx postkit render` for PNG export
 │   └── postkit-review/     strategy + copy + design critique in one pass
-├── brand.md                your brand profile (stub — fill via /postkit-setup)
 ├── theme.css               palette, fonts, component classes — edit freely
 ├── CLAUDE.md               guide Claude uses inside this workspace
 ├── posts/                  your posts
 └── assets/                 images, photos, backgrounds
 ```
 
+Your **brand profile** (handles per platform, voice, audience, goals, hook
+formulas, …) lives in Claude Code's per-workspace memory, not as a file in
+the project tree. `/postkit-setup` writes it there; `/postkit-new` and
+`/postkit-review` read it from there.
+
 **Re-run `npx postkit` anytime to upgrade the skills.** Managed files
-(`.claude/skills/*`) are refreshed. User files (`brand.md`, `theme.css`,
-`CLAUDE.md`, `posts/`, `assets/`) are left alone.
+(`.claude/skills/*`) are refreshed. User files (`theme.css`, `CLAUDE.md`,
+`posts/`, `assets/`) and your brand memory are left alone.
 
 ## Why postkit?
 
 - **HTML/CSS is the source of truth.** Full control of every pixel, version-controllable.
-- **Brand-aware drafting.** `/postkit-new` reads `brand.md` so every post matches your voice, audience, and goals — no generic AI slop.
+- **Brand-aware drafting.** `/postkit-new` reads your brand profile from Claude's memory so every post matches your voice, audience, and goals — no generic AI slop.
 - **Theme once, reuse everywhere.** Palette and type live in `theme.css`; slides pull from it.
 - **Native export dimensions** for every major platform (9:16, 4:5, 1:1, 16:9, 3:4).
 - **Skills over commands.** The workflow is conversational, not a CLI cheat-sheet.
@@ -123,8 +127,8 @@ docker run --rm -v "$PWD":/work -w /work postkit render posts/my-post
 
 | Skill              | Purpose                                                                       |
 | ------------------ | ----------------------------------------------------------------------------- |
-| `/postkit-setup`   | Interviews you about brand, audience, voice, visuals → writes `brand.md`      |
-| `/postkit-new`     | Drafts a post (or a series) using `brand.md` + `theme.css`                    |
+| `/postkit-setup`   | Interviews you about brand, audience, voice, visuals → saves to Claude memory |
+| `/postkit-new`     | Drafts a post (or a series) using the brand memory + `theme.css`              |
 | `/postkit-render`  | Exports slides to PNG via Puppeteer                                           |
 | `/postkit-review`  | Critiques a draft on strategy, copy, and design in one pass                   |
 
@@ -139,7 +143,7 @@ npx postkit render <post>        Render slides to PNG  (called by /postkit-rende
 
 ## Roadmap
 
-- [ ] `/postkit-schedule` — plan a posting calendar from brand.md
+- [ ] `/postkit-schedule` — plan a posting calendar from the brand memory
 - [ ] Built-in asset optimizer
 - [ ] Template gallery (community themes)
 - [ ] Direct upload hooks (Buffer, Typefully, …)

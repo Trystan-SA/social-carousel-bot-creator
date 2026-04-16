@@ -14,7 +14,6 @@ const MANAGED = new Set([".claude"]);
 // the user customizes them.
 const USER_OWNED = new Set([
   "theme.css",
-  "brand.md",
   "CLAUDE.md",
   ".gitignore",
 ]);
@@ -99,7 +98,8 @@ Done. Next:
 `);
   } else {
     console.log(`
-Skills refreshed. Your brand.md, theme.css, and posts were left alone.
+Skills refreshed. Your theme.css, CLAUDE.md, and posts were left alone.
+Brand profile stays in Claude Code memory.
 `);
   }
 }
