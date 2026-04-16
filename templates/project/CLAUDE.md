@@ -1,6 +1,6 @@
 # Carousel project — Claude Code guide
 
-This project uses [carousel-kit](https://github.com/your-org/carousel-kit) to render social-media carousels from HTML/CSS. This file tells Claude Code how to help you create posts.
+This project uses [carousel-kit](https://github.com/Trystan-SA/carousel-kit) to render social-media carousels from HTML/CSS. This file tells Claude Code how to help you create posts.
 
 > **Customize this file.** Replace the placeholder sections below with your real brand, audience, and goals. The richer this doc, the better Claude can draft posts that sound like you.
 
@@ -36,13 +36,13 @@ Edit `theme.css` to change brand colors / fonts / radii globally. Per-slide over
 
 Not every post should be a carousel. Use this as a decision guide:
 
-| Content type | Best format |
-|---|---|
-| Educational reference (tips, rules, how-tos) | Carousel |
-| Personal story / vulnerable moment | Selfie video or photo |
-| "Look at my screen" / product demo | Screen recording |
-| Myth-busting, hot take | Carousel or selfie video |
-| Product reveal / walkthrough | Screen recording or carousel |
+| Content type                                 | Best format                  |
+| -------------------------------------------- | ---------------------------- |
+| Educational reference (tips, rules, how-tos) | Carousel                     |
+| Personal story / vulnerable moment           | Selfie video or photo        |
+| "Look at my screen" / product demo           | Screen recording             |
+| Myth-busting, hot take                       | Carousel or selfie video     |
+| Product reveal / walkthrough                 | Screen recording or carousel |
 
 Ask the user to film a video or provide a photo when the format decision guide points away from a carousel.
 

@@ -5,7 +5,7 @@ Thanks for considering a contribution! carousel-kit is small and opinionated by 
 ## Dev setup
 
 ```bash
-git clone https://github.com/your-org/carousel-kit.git
+git clone https://github.com/Trystan-SA/carousel-kit.git
 cd carousel-kit
 npm install
 ./bin/carousel-kit.js render examples/quickstart

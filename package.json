@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/carousel-kit.git"
+    "url": "https://github.com/Trystan-SA/carousel-kit.git"
   },
   "engines": {
     "node": ">=20"
