@@ -52,6 +52,19 @@ Do all three in the same response. Don't spawn sub-agents.
 - **Emotional triggers.** Does the copy hit a real feeling, or play it safe?
 - **Tone consistency.** Does every slide match the voice in `brand_voice.md`? Flag
   anything that drifts corporate / cutesy / jargon-heavy.
+- **AI-voice tells.** Flag every instance of the patterns below as HIGH
+  (they break the illusion that a human wrote this):
+  - Em dashes (`—`) used as a pause or aside. Propose a period, comma, or
+    line break.
+  - "Not X, it's Y" / "X, not Y" contrast rhetoric. Propose a direct
+    positive claim.
+  - Filler openers: "Here's the thing,", "Let me be clear,", "The truth
+    is,", "Look,", "At the end of the day,".
+  - Marketing superlatives: "game-changer", "seamless", "elegant",
+    "beautifully", "transformative".
+  - Rhythmic tricolons ("bigger, better, faster") and parallel 3-item
+    structures when the user's brand voice doesn't call for them.
+  - Rhetorical-question hooks unless `brand_voice.md` explicitly allows them.
 
 ### 3. Design
 

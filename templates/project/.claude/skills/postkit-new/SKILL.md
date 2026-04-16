@@ -153,6 +153,29 @@ Before writing any slide copy:
 - No emojis unless `brand_voice.md` permits them.
 - Respect the off-limits list in `brand_hooks.md`.
 
+### Anti-AI-voice guardrails
+
+These are always on, regardless of brand. Cut these tells so the copy reads
+like a human wrote it, not a language model:
+
+- **No em dashes (`—`).** Use a period, a comma, or a line break. Even in
+  prose captions.
+- **No "not X, it's Y" / "X, not Y" contrast rhetoric.** Write the positive
+  statement directly. Don't stage a false opposite to knock down.
+- **No tricolons or rhythmic parallelism** ("bigger, better, faster").
+  Vary sentence length on purpose.
+- **No filler openers:** "Here's the thing,", "Let me be clear,", "The
+  truth is,", "Look,", "At the end of the day,".
+- **No marketing superlatives:** "game-changer", "seamless", "elegant",
+  "beautifully", "transformative".
+- **No rhetorical-question hooks** unless `brand_voice.md` explicitly says
+  the user writes that way.
+- **No tidy 3-bullet lists with parallel grammar.** Uneven is more human.
+
+Before you hand the draft off, re-read every slide and caption and delete
+every instance of these. If removing one leaves a gap, rewrite the sentence,
+don't put the tic back.
+
 ## Watermark
 
 Use the handle in `brand_identity.md` that matches the post's target platform.
