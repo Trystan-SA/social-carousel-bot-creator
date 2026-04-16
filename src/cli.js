@@ -1,11 +1,8 @@
 import { readFile } from "fs/promises";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
-import { init } from "./commands/init.js";
-import { newPost } from "./commands/new.js";
-import { render } from "./commands/render.js";
-import { watch } from "./commands/watch.js";
-import { FORMATS } from "./formats.js";
+import { scaffold } from "./scaffold.js";
+import { renderPost } from "./render.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PKG_ROOT = resolve(__dirname, "..");
@@ -33,24 +30,18 @@ async function version() {
 }
 
 function usage() {
-  return `postkit — generate social-media carousels from HTML/CSS
+  return `postkit — scaffold a Claude-Code-native social-media post workspace.
 
 Usage:
-  postkit <command> [options]
+  npx postkit                     Scaffold (or update) ./postkit/
+  npx postkit render <post>       Render a post's slides to PNG (used by /postkit-render)
+  npx postkit --version           Print the installed version
 
-Commands:
-  init                          Scaffold a postkit project in the current directory
-  new <slug> [--format 9:16]    Create a new post folder with starter slides
-  render <post-folder>          Render slides in <post-folder> to PNG
-  watch <post-folder>           Re-render automatically on file change
-  formats                       List supported aspect ratios
-  version                       Print the installed version
-
-Examples:
-  postkit init
-  postkit new intro-post --format 9:16
-  postkit render posts/intro-post
-  postkit watch posts/intro-post
+After scaffolding, open Claude Code inside ./postkit/ and run:
+  /postkit-setup     brand intake
+  /postkit-new       draft a post (or a series)
+  /postkit-render    render slides
+  /postkit-review    critique a draft
 `;
 }
 
@@ -58,36 +49,27 @@ export async function run(argv) {
   const { positional, flags } = parseArgs(argv);
   const [cmd, ...rest] = positional;
 
-  if (!cmd || flags.help || cmd === "help") {
+  if (flags.help || cmd === "help") {
     console.log(usage());
     return;
   }
 
+  if (flags.version || cmd === "version" || cmd === "--version" || cmd === "-v") {
+    console.log(await version());
+    return;
+  }
+
   try {
-    switch (cmd) {
-      case "init":
-        return await init({ force: !!flags.force });
-      case "new":
-        return await newPost(rest[0], { format: flags.format });
-      case "render":
-        return await render(rest[0], { format: flags.format });
-      case "watch":
-        return await watch(rest[0], { format: flags.format });
-      case "formats":
-        for (const [k, v] of Object.entries(FORMATS)) {
-          console.log(`  ${k.padEnd(6)} ${v.width}×${v.height}   ${v.label}`);
-        }
-        return;
-      case "version":
-      case "--version":
-      case "-v":
-        console.log(await version());
-        return;
-      default:
-        console.error(`Unknown command: ${cmd}\n`);
-        console.log(usage());
-        process.exit(1);
+    if (!cmd || cmd === "init") {
+      return await scaffold();
     }
+    if (cmd === "render") {
+      if (!rest[0]) throw new Error("Usage: postkit render <post-folder>");
+      return await renderPost(rest[0], { formatOverride: flags.format });
+    }
+    console.error(`Unknown command: ${cmd}\n`);
+    console.log(usage());
+    process.exit(1);
   } catch (err) {
     console.error(`✗ ${err.message}`);
     process.exit(1);

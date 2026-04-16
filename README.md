@@ -6,91 +6,75 @@
 [![node](https://img.shields.io/node/v/postkit.svg)](https://www.npmjs.com/package/postkit)
 [![GitHub stars](https://img.shields.io/github/stars/Trystan-SA/postkit?style=social)](https://github.com/Trystan-SA/postkit)
 
-**Generate Social media images and carousel for TikTok, Instagram, X.com from HTML/CSS.** Themeable, scriptable, and designed to pair with [Claude Code](https://claude.com/claude-code) for AI-assisted content creation.
+**A Claude-Code-native workspace for social-media posts.** Scaffold once, then
+let Claude skills handle brand setup, drafting, critique, and rendering.
+
+Slides are HTML/CSS. Rendering is Puppeteer. Exports are native dimensions for
+TikTok, Instagram, X, and LinkedIn.
 
 ```bash
-npx postkit init
-npx postkit new intro-post --format 9:16
-npx postkit render posts/intro-post
+npx postkit            # scaffolds ./postkit/
+cd postkit
+claude                 # open Claude Code
+/postkit-setup         # answer a few brand questions
+/postkit-new           # draft a post (or a whole series)
+/postkit-render        # export PNGs
 ```
 
-That's it — open `posts/intro-post/output/` and upload the PNGs.
+That's it — no more `postkit new`, `postkit render`, `postkit watch`. The
+workflow lives in Claude skills.
 
-> After a global install the command `postkit` is available too (`npm i -g postkit && postkit render posts/intro-post`).
+## What `npx postkit` gives you
+
+```
+postkit/
+├── .claude/skills/
+│   ├── postkit-setup/      brand/voice/visual intake → brand.md
+│   ├── postkit-new/        draft a post or series (reads brand.md + theme.css)
+│   ├── postkit-render/     shell out to `npx postkit render` for PNG export
+│   └── postkit-review/     strategy + copy + design critique in one pass
+├── brand.md                your brand profile (stub — fill via /postkit-setup)
+├── theme.css               palette, fonts, component classes — edit freely
+├── CLAUDE.md               guide Claude uses inside this workspace
+├── posts/                  your posts
+└── assets/                 images, photos, backgrounds
+```
+
+**Re-run `npx postkit` anytime to upgrade the skills.** Managed files
+(`.claude/skills/*`) are refreshed. User files (`brand.md`, `theme.css`,
+`CLAUDE.md`, `posts/`, `assets/`) are left alone.
 
 ## Why postkit?
 
-Most social-media carousel tools are locked-in SaaS with rigid templates. If you care about design quality or want your post pipeline in version control, you're stuck.
-
-postkit is the opposite:
-
-- **HTML/CSS is the source of truth**, full control of every pixel.
-- **Theme once, reuse everywhere**, your palette and type live in `theme.css`.
+- **HTML/CSS is the source of truth.** Full control of every pixel, version-controllable.
+- **Brand-aware drafting.** `/postkit-new` reads `brand.md` so every post matches your voice, audience, and goals — no generic AI slop.
+- **Theme once, reuse everywhere.** Palette and type live in `theme.css`; slides pull from it.
 - **Native export dimensions** for every major platform (9:16, 4:5, 1:1, 16:9, 3:4).
-- **Watch mode** for live reload while you design.
-- **Claude-Code-friendly**, optional AI review pipeline (strategist, copywriter, designer).
+- **Skills over commands.** The workflow is conversational, not a CLI cheat-sheet.
 - **Docker fallback** when you'd rather not install Chrome locally.
 
 ## Install
 
-postkit needs **Node 20+** and a Chrome/Chromium binary (Puppeteer downloads one on first install; a system install works too).
+Postkit needs **Node 20+** and a Chrome/Chromium binary (Puppeteer downloads one
+on first install; a system install works too). You don't install postkit —
+you run it via `npx` each time you scaffold or upgrade:
 
 ```bash
-npm install -g postkit
-# or run ad-hoc with npx
-npx postkit <command>
+npx postkit            # scaffold or refresh ./postkit/
+npx postkit@latest     # same, but pin to the newest version
 ```
-
-Once installed globally, the CLI binary is `postkit`. The rest of this README uses that form.
 
 On minimal Linux systems you may also need native libs for Chromium:
 
 ```bash
-sudo ./setup.sh   # apt-based
+sudo ./setup.sh        # apt-based
 ```
 
-Don't want to touch your system? See [Docker](#docker).
-
-## Quickstart
-
-```bash
-mkdir my-brand && cd my-brand
-postkit init
-```
-
-This creates:
-
-```
-my-brand/
-├── CLAUDE.md         # Your brand / voice guide for Claude Code
-├── theme.css         # Your palette, fonts, radii — edit freely
-├── agents/           # (optional) AI review agents for Claude Code
-├── posts/            # Your posts go here
-└── assets/           # Images, photos, backgrounds
-```
-
-Create your first post:
-
-```bash
-postkit new my-first-post
-```
-
-Edit the generated HTML in `posts/my-first-post/`, then render:
-
-```bash
-postkit render posts/my-first-post
-# → posts/my-first-post/output/slide-1.png ... slide-N.png
-```
-
-Or iterate with hot-reload:
-
-```bash
-postkit watch posts/my-first-post
-```
+Or see [Docker](#docker).
 
 ## Formats
 
-Set the format per post in `post.json`:
+Every post has a `post.json` with a `format`:
 
 ```json
 { "format": "9:16" }
@@ -104,21 +88,12 @@ Set the format per post in `post.json`:
 | `16:9` | 1920 × 1080 | X, YouTube thumbnails, LinkedIn  |
 | `3:4`  | 1080 × 1440 | LinkedIn carousels               |
 
-Override on the fly:
-
-```bash
-postkit render posts/my-post --format 1:1
-```
-
-List them anytime:
-
-```bash
-postkit formats
-```
+`/postkit-new` asks which format you want; `/postkit-render` uses what
+`post.json` says (or override with `npx postkit render posts/<slug> --format 1:1`).
 
 ## Theming
 
-Everything visual is driven by CSS custom properties in `theme.css` at your project root:
+All visual choices are CSS custom properties in `theme.css`:
 
 ```css
 :root {
@@ -131,19 +106,9 @@ Everything visual is driven by CSS custom properties in `theme.css` at your proj
 }
 ```
 
-Slides link to `../../theme.css` and can layer per-slide overrides in a `<style>` block. See [`examples/quickstart/`](examples/quickstart/) for a complete dark-mode theme.
-
-## AI review (optional)
-
-postkit ships three Claude Code sub-agents that review your drafts sequentially:
-
-1. **social-media-strategist** — hook, angle, format fit, value arc, audience, goal alignment
-2. **social-media-copywriter** — CTA, word economy, slide transitions, emotional triggers, tone
-3. **social-media-designer** — layout, whitespace, rhythm, typography, text density, color
-
-Each returns HIGH / MEDIUM / LOW findings. You apply HIGH impact items; the rest are logged. `postkit init` installs them into `agents/`, and the scaffolded `CLAUDE.md` explains how to trigger the pipeline in Claude Code.
-
-Not a Claude Code user? The agents are plain Markdown specs — the review logic works as prompts with any LLM.
+Slides link to `../../theme.css` and can layer per-slide overrides in a
+`<style>` block. See [`examples/quickstart/`](examples/quickstart/) for a
+complete dark-mode theme.
 
 ## Docker
 
@@ -154,20 +119,27 @@ docker build -t postkit .
 docker run --rm -v "$PWD":/work -w /work postkit render posts/my-post
 ```
 
-## CLI reference
+## The skills
+
+| Skill              | Purpose                                                                       |
+| ------------------ | ----------------------------------------------------------------------------- |
+| `/postkit-setup`   | Interviews you about brand, audience, voice, visuals → writes `brand.md`      |
+| `/postkit-new`     | Drafts a post (or a series) using `brand.md` + `theme.css`                    |
+| `/postkit-render`  | Exports slides to PNG via Puppeteer                                           |
+| `/postkit-review`  | Critiques a draft on strategy, copy, and design in one pass                   |
+
+## CLI (used internally by skills)
+
+Only two commands exist; you rarely type them yourself:
 
 ```
-postkit init                          Scaffold a project in the current dir
-postkit new <slug> [--format 9:16]    Create a new post folder
-postkit render <post>  [--format …]   Render slides to PNG
-postkit watch  <post>  [--format …]   Re-render on file change
-postkit formats                       List supported aspect ratios
-postkit version                       Print version
+npx postkit                      Scaffold or refresh ./postkit/
+npx postkit render <post>        Render slides to PNG  (called by /postkit-render)
 ```
 
 ## Roadmap
 
-- [ ] `postkit export` → MP4 / GIF for animated carousels
+- [ ] `/postkit-schedule` — plan a posting calendar from brand.md
 - [ ] Built-in asset optimizer
 - [ ] Template gallery (community themes)
 - [ ] Direct upload hooks (Buffer, Typefully, …)

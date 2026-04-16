@@ -15,6 +15,9 @@ assets/*
 strategy.md
 CLAUDE.local.md
 .claude/
+# …but the scaffold template's skills must ship in the npm package.
+!templates/project/.claude/
+!templates/project/.claude/**
 
 # Editor / tooling
 .vscode/

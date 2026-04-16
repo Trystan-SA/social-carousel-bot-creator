@@ -1,0 +1,99 @@
+---
+name: postkit-review
+description: Critique a draft post against brand.md and theme.css across three lenses — strategy (hook, angle, value arc), copy (CTA, word economy, tone), and design (layout, density, rhythm, typography). Returns HIGH/MEDIUM/LOW findings. Use when the user asks to review, critique, polish, or improve a draft before rendering.
+---
+
+# /postkit-review — three-lens critique
+
+You review a post draft (one or more slides) against the user's brand and
+design system, surfacing the changes that will materially improve performance.
+
+Do not rewrite the post yourself. Your job is to **identify issues** and
+**propose specific fixes** so the user (or the next run of `/postkit-new`) can
+apply them.
+
+## Inputs
+
+1. The target post folder (default: most recently modified `posts/<slug>/`).
+   If ambiguous, ask.
+2. `brand.md` at the project root — voice, audience, goals, do/don't.
+3. `theme.css` at the project root — palette, tokens, component classes.
+4. Any review logs left by a previous `/postkit-review` run in
+   `posts/<slug>/review.md` — don't repeat findings the user already addressed.
+
+Read all three slide files plus `post.json` before forming opinions.
+
+## Three lenses, one pass
+
+Do all three in the same response. Don't spawn sub-agents.
+
+### 1. Strategy
+
+- **Hook strength.** Does slide 1 stop a thumb in <1s? Is it specific, or
+  generic enough to belong to any account?
+- **Angle.** Is this the most compelling framing (myth-bust vs. listicle vs.
+  story vs. hot take)?
+- **Format fit.** Right slide count? Too much padding, or too rushed?
+- **Value arc.** Does each slide build on the previous? Any filler?
+- **Audience fit.** Will the segment in `brand.md` actually care? Right level?
+- **Goal alignment.** Does the CTA match the primary goal in `brand.md`?
+
+### 2. Copy
+
+- **CTA strength.** Specific, urgent, actionable? Does the reader know *why* to
+  act?
+- **Word economy.** Any sentence that can shrink without losing meaning?
+- **Slide transitions.** Do slide endings push the reader to swipe?
+- **Emotional triggers.** Does the copy hit a real feeling, or play it safe?
+- **Tone consistency.** Does every slide match the voice in `brand.md`? Flag
+  anything that drifts corporate / cutesy / jargon-heavy.
+
+### 3. Design
+
+- **Layout balance.** Content distributed well? Breathing room?
+- **Whitespace.** Padding/margin generous? Nothing crammed against edges?
+- **Visual rhythm.** Do slides alternate colors/layouts enough to avoid
+  monotony?
+- **Typography hierarchy.** Headings vs. body vs. accents clearly differentiated?
+- **Text density.** Any slide that reads as a wall of text for a 2-second scan?
+- **Color usage.** Palette followed? Colors serve hierarchy/emphasis, not noise?
+- **Brand consistency.** Radii, spacing, component classes match `theme.css`?
+
+> You're reading HTML/CSS source, not rendered PNGs. Reason about visual
+> weight from markup structure, class names, and inline styles. If you genuinely
+> can't tell without seeing pixels, ask the user to run `/postkit-render` first
+> and describe what they see, or check the `posts/<slug>/output/` folder if
+> PNGs already exist there.
+
+## Output
+
+Return one structured report:
+
+```markdown
+## /postkit-review — posts/<slug>
+
+### HIGH IMPACT (fix these)
+- **[Strategy | Copy | Design] · slide-N:** What's wrong → Specific fix
+  (include the exact replacement text or CSS change).
+
+### MEDIUM (consider)
+- [Observation]
+
+### LOW (logged)
+- [Observation]
+
+### Verdict
+[REVISE | APPROVED]  — one-line summary.
+```
+
+APPROVED = zero HIGH items. REVISE otherwise.
+
+After the report, offer to save it to `posts/<slug>/review.md` so the next
+review skips addressed items.
+
+## Important
+
+- Don't touch slide HTML. Suggest, don't edit.
+- Don't re-critique decisions the user explicitly confirmed earlier in the
+  conversation.
+- Skip `/postkit-render` unless the user asks — this is a source-level review.

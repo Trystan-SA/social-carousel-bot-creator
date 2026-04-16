@@ -1,7 +1,7 @@
 {
   "name": "postkit",
-  "version": "0.1.1",
-  "description": "Generate TikTok, Instagram, and X.com carousels from HTML/CSS — themed, scriptable, Claude-Code-friendly.",
+  "version": "0.2.0",
+  "description": "Scaffold a Claude-Code-native social-media post workspace — skills for brand setup, drafting, reviewing, and rendering HTML/CSS carousels to PNG.",
   "type": "module",
   "bin": {
     "postkit": "./bin/postkit.js"
@@ -14,12 +14,6 @@
     "README.md",
     "LICENSE"
   ],
-  "scripts": {
-    "render": "node bin/postkit.js render",
-    "new": "node bin/postkit.js new",
-    "init": "node bin/postkit.js init",
-    "watch": "node bin/postkit.js watch"
-  },
   "keywords": [
     "carousel",
     "tiktok",
@@ -28,7 +22,8 @@
     "social-media",
     "puppeteer",
     "html-to-png",
-    "claude-code"
+    "claude-code",
+    "claude-skills"
   ],
   "license": "MIT",
   "repository": {
@@ -39,7 +34,6 @@
     "node": ">=20"
   },
   "dependencies": {
-    "chokidar": "^4.0.1",
     "puppeteer": "^24.0.0"
   }
 }
