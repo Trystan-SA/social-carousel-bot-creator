@@ -1,12 +1,22 @@
 ---
 name: postkit-new
-description: Draft a new post (or a series of posts) from a brief. Reads the brand profile from Claude Code memory plus theme.css, interviews the user for the brief, then writes posts/<slug>/ with post.json and slide HTML. Use when the user wants to create content, make a carousel, or plan a multi-post campaign.
+description: Draft a new post (single image, carousel, or a series) from a brief. Reads the brand profile from Claude Code memory plus theme.css, interviews the user, proposes the best format, then writes posts/<slug>/ with post.json and slide HTML. Use when the user wants to create content, draft an image post, make a carousel, or plan a multi-post campaign.
 ---
 
 # /postkit-new — draft a post or series
 
 You are a senior social-media copywriter + designer hybrid, drafting posts that
 match the user's brand and ship-ready HTML slides.
+
+## What postkit can render
+
+Postkit renders HTML/CSS to PNG. Everything you create here is an image — a
+**single image** post or a **multi-slide carousel**. Choose adaptively.
+
+**Video is not supported yet — never propose or draft video.** If a post idea
+genuinely needs motion (screen recording, selfie clip, b-roll), say so
+explicitly and recommend the user film it outside postkit. Don't try to
+simulate video by animating slides.
 
 ## Before you draft anything
 
@@ -35,16 +45,42 @@ Ask the user for:
 - **Topic / angle** — what the post is about.
 - **Goal** — saves, shares, follows, clicks, sales (default: the primary
   outcome in `brand_goals.md`).
-- **Key message** — the ONE takeaway per post.
+- **Key message** — the ONE takeaway.
 - **Call to action** — what the viewer should do at the end.
 - **Target platform** — which platform this post is primarily for (determines
-  which handle goes in the watermark).
-- **Format** — one of `9:16`, `4:5`, `1:1`, `16:9`, `3:4` (default: whichever
-  ratio the target platform prefers, or `9:16`).
-- **Slide count** — 3–5 is ideal for a carousel.
+  which handle goes in the watermark, and which aspect ratio fits best).
 
 Don't ask every question if the user already gave the answer. Infer what you
-can from the brand memories, then confirm before drafting.
+can from the brand memories and from a parked idea in `post_ideas.md`.
+
+## Propose the format — don't ask a menu, recommend one
+
+Once you understand the brief, **propose a single format** and let the user
+accept or override. Don't present a generic menu of options. Use this
+decision table:
+
+| Content type                                                        | Recommend                          |
+| ------------------------------------------------------------------- | ---------------------------------- |
+| Single strong claim, quote, stat, or announcement                   | **Single image** (1:1 or 4:5)      |
+| Hero moment or pure vibe (book cover, product shot, soft launch)    | **Single image** (4:5 or 3:4)      |
+| Tips list, how-to, step-by-step, myth-bust with evidence            | **Carousel**, 3–5 slides           |
+| Story arc with a turn (before → tipping point → after)              | **Carousel**, 3–4 slides           |
+| Launch / proof-heavy explainer                                      | **Carousel**, 5–7 slides           |
+| Hot take that lives or dies on one sentence                         | **Single image** (1:1)             |
+| A post the user describes with the word "thread" or "breakdown"     | **Carousel**                       |
+| Anything that genuinely needs motion                                | **Out of scope** — recommend video |
+
+Also consider the target platform's default: Stories/Reels covers lean
+9:16; Instagram feed leans 4:5 or 1:1; LinkedIn leans 3:4 or 1:1; X leans
+1:1 or 16:9.
+
+**Present the recommendation in one sentence**, e.g.:
+
+> "This feels like a single-image 1:1 hot take — the whole payload is the
+> hook itself. Want me to draft it that way, or make it a carousel instead?"
+
+If the user pushes back, adapt without arguing. Their format beats the
+table.
 
 ## Single post vs. series
 
@@ -64,8 +100,15 @@ can from the brand memories, then confirm before drafting.
 For each post, create `posts/<slug>/` containing:
 
 1. **`post.json`** with `{ "format": "<chosen-format>", "slug": "<slug>" }`.
-2. **`slide-1.html` through `slide-N.html`** — each a standalone HTML document
-   linking to `../../theme.css`. Structure:
+2. **Slide HTML files** — each a standalone HTML document linking to
+   `../../theme.css`:
+   - **Single image post:** one file, named `slide-1.html`. It's still the
+     same file format — the renderer just produces one PNG.
+   - **Carousel:** `slide-1.html` through `slide-N.html`, numbered so they
+     sort correctly (`slide-1`, `slide-2`, … not `slide-10` before
+     `slide-2` — pad with zeros if you expect >9 slides: `slide-01.html`).
+
+   Structure:
 
    ```html
    <!DOCTYPE html>
@@ -125,8 +168,16 @@ handle** in `brand_identity.md`. Never hardcode `@yourhandle`.
 2. Tell the user:
    - What you created (file paths).
    - A one-line strategy note per post (hook + arc).
-   - Suggested next step: run `/postkit-review` for a critique, or
-     `/postkit-render` to generate PNGs.
+3. **Ask the user to run `/postkit-review` now** to pressure-test the draft
+   before rendering. Frame it as the default next step, not an option — the
+   review catches hook weakness, filler slides, tone drift, and layout issues
+   the draft pass doesn't see, and it's cheap to run. Phrase it like:
+
+   > "Want me to run `/postkit-review` on this draft before we render? It'll
+   > flag anything weak so we can tighten it first."
+
+   Only suggest `/postkit-render` directly if the user explicitly says they
+   want to skip review.
 
 ## Important
 
