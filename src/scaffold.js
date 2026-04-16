@@ -94,7 +94,8 @@ Done. Next:
   cd postkit
   claude                # open Claude Code
   /postkit-setup        # answer a few brand questions
-  /postkit-new          # then create your first post
+  /postkit-idea         # brainstorm post ideas + plan a sequence
+  /postkit-new          # draft a post from an idea
 `);
   } else {
     console.log(`

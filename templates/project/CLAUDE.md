@@ -12,6 +12,8 @@ there, write it there.
 - `/postkit-setup` — interview the user and persist the brand profile to
   memory (`brand_identity.md`, `brand_audience.md`, `brand_goals.md`,
   `brand_voice.md`, `brand_visual.md`, `brand_hooks.md`)
+- `/postkit-idea` — brand-aware creative brainstorm + sequence planning,
+  saves chosen sequences to `post_ideas.md` memory
 - `/postkit-new` — draft a new post (or a series of posts)
 - `/postkit-render` — render a post's slides to PNG
 - `/postkit-review` — critique a draft for strategy, copy, and design

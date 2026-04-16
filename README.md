@@ -30,6 +30,7 @@ workflow lives in Claude skills.
 postkit/
 ├── .claude/skills/
 │   ├── postkit-setup/      brand/voice/visual intake → saves to Claude memory
+│   ├── postkit-idea/       creative brainstorm + sequence planning (brand-aware)
 │   ├── postkit-new/        draft a post or series (reads brand memory + theme.css)
 │   ├── postkit-render/     shell out to `npx postkit render` for PNG export
 │   └── postkit-review/     strategy + copy + design critique in one pass
@@ -128,6 +129,7 @@ docker run --rm -v "$PWD":/work -w /work postkit render posts/my-post
 | Skill              | Purpose                                                                       |
 | ------------------ | ----------------------------------------------------------------------------- |
 | `/postkit-setup`   | Interviews you about brand, audience, voice, visuals → saves to Claude memory |
+| `/postkit-idea`    | Brand-aware creative brainstorm, then plans a resonant sequence of follow-ups |
 | `/postkit-new`     | Drafts a post (or a series) using the brand memory + `theme.css`              |
 | `/postkit-render`  | Exports slides to PNG via Puppeteer                                           |
 | `/postkit-review`  | Critiques a draft on strategy, copy, and design in one pass                   |

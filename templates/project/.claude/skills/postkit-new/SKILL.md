@@ -15,11 +15,17 @@ match the user's brand and ship-ready HTML slides.
    `brand_goals.md`, `brand_voice.md`, `brand_visual.md`, `brand_hooks.md`. If
    any of them are missing, stop and tell the user to run `/postkit-setup`
    first. Don't guess brand voice.
-2. **Read `theme.css`.** Note the palette, fonts, and component classes
+2. **Check `post_ideas.md` memory.** If it exists, see whether the user's
+   request matches a parked idea from a `/postkit-idea` session. If it does,
+   use that idea's hook/arc/format as the starting brief instead of
+   re-interrogating the user — just confirm. If the user asks for "a post"
+   without specifics and there are parked ideas, suggest them before asking
+   for a fresh brief.
+3. **Read `theme.css`.** Note the palette, fonts, and component classes
    available (`.heading-*`, `.body-*`, `.card`, `.pill`, `.tip-number`,
    `.watermark`, …). Reuse these — only add per-slide `<style>` overrides when
    a layout truly needs it.
-3. **Scan existing `posts/`** so you can suggest slugs that don't collide and
+4. **Scan existing `posts/`** so you can suggest slugs that don't collide and
    match the user's slug style.
 
 ## Gather the brief
@@ -114,12 +120,13 @@ handle** in `brand_identity.md`. Never hardcode `@yourhandle`.
 
 ## After writing
 
-Tell the user:
-
-1. What you created (file paths).
-2. A one-line strategy note per post (hook + arc).
-3. Suggested next step: run `/postkit-review` for a critique, or `/postkit-render`
-   to generate PNGs.
+1. If this post came from a parked idea in `post_ideas.md`, flip its status
+   from `idea` to `drafted` in that memory file.
+2. Tell the user:
+   - What you created (file paths).
+   - A one-line strategy note per post (hook + arc).
+   - Suggested next step: run `/postkit-review` for a critique, or
+     `/postkit-render` to generate PNGs.
 
 ## Important
 

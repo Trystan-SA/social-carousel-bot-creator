@@ -29,6 +29,7 @@ src/
 templates/project/                   Scaffolded verbatim into user's ./postkit/
   .claude/skills/
     postkit-setup/SKILL.md           Brand intake → saves brand_*.md to Claude memory + updates theme.css
+    postkit-idea/SKILL.md            Creative brainstorm + sequence plan → saves post_ideas.md memory
     postkit-new/SKILL.md             Draft one post or a series
     postkit-render/SKILL.md          Shells out to `npx postkit render`
     postkit-review/SKILL.md          Strategy + copy + design critique
