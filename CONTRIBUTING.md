@@ -1,14 +1,14 @@
-# Contributing to carousel-kit
+# Contributing to postkit
 
-Thanks for considering a contribution! carousel-kit is small and opinionated by design. Before you spend time on a large change, open an issue to discuss the shape — it's the quickest way to avoid wasted work.
+Thanks for considering a contribution! postkit is small and opinionated by design. Before you spend time on a large change, open an issue to discuss the shape — it's the quickest way to avoid wasted work.
 
 ## Dev setup
 
 ```bash
-git clone https://github.com/Trystan-SA/social-carousel-bot-creator.git
-cd social-carousel-bot-creator
+git clone https://github.com/Trystan-SA/postkit.git
+cd postkit
 npm install
-./bin/carousel-kit.js render examples/quickstart
+./bin/postkit.js render examples/quickstart
 ```
 
 The rendered PNGs land in `examples/quickstart/output/`.
@@ -42,7 +42,7 @@ docs/             Longform docs
 ## Pull requests
 
 1. Fork, branch, commit.
-2. Run `node bin/carousel-kit.js render examples/quickstart` and confirm PNGs look correct.
+2. Run `node bin/postkit.js render examples/quickstart` and confirm PNGs look correct.
 3. If you added a command, update `README.md` and the `usage()` block in `src/cli.js`.
 4. If you touched `default.css`, eyeball the example render for regressions.
 5. Open the PR with a short "why" and a screenshot if the visual output changes.

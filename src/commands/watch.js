@@ -3,10 +3,10 @@ import { resolve } from "path";
 import { renderPost } from "../render.js";
 
 export async function watch(postDir, { format } = {}) {
-  if (!postDir) throw new Error("Usage: carousel-kit watch <post-folder>");
+  if (!postDir) throw new Error("Usage: postkit watch <post-folder>");
   const dir = resolve(postDir);
 
-  console.log(`carousel-kit · watching ${dir}  (Ctrl-C to stop)\n`);
+  console.log(`postkit · watching ${dir}  (Ctrl-C to stop)\n`);
 
   // Initial render
   try {

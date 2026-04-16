@@ -21,7 +21,7 @@ async function copyTemplate(src, dest, { force = false } = {}) {
 
 export async function init({ cwd = process.cwd(), force = false } = {}) {
   const target = resolve(cwd);
-  console.log(`carousel-kit · initializing project in ${target}\n`);
+  console.log(`postkit · initializing project in ${target}\n`);
 
   const templates = join(PKG_ROOT, "templates", "project");
   const defaultTheme = join(PKG_ROOT, "src", "themes", "default.css");
@@ -52,7 +52,7 @@ export async function init({ cwd = process.cwd(), force = false } = {}) {
   console.log(`
 Done! Next steps:
   1. Edit theme.css to match your brand (colors, fonts, watermark)
-  2. Create your first post:   carousel-kit new my-first-post
-  3. Render it:                carousel-kit render posts/my-first-post
+  2. Create your first post:   postkit new my-first-post
+  3. Render it:                postkit render posts/my-first-post
 `);
 }

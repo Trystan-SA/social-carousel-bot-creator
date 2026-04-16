@@ -1,4 +1,4 @@
-// Aspect-ratio → pixel-dimensions map for the social platforms carousel-kit targets.
+// Aspect-ratio → pixel-dimensions map for the social platforms postkit targets.
 // All values are the native export dimensions used by each platform.
 
 export const FORMATS = {

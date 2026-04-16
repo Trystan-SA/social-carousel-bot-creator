@@ -28,4 +28,4 @@ apt-get install -y -qq \
 
 echo
 echo "Done. You can now render with:"
-echo "  npx carousel-kit render posts/<post-slug>"
+echo "  npx postkit render posts/<post-slug>"

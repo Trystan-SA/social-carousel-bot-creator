@@ -1,10 +1,10 @@
 {
-  "name": "social-carousel-bot-creator",
+  "name": "postkit",
   "version": "0.1.1",
   "description": "Generate TikTok, Instagram, and X.com carousels from HTML/CSS — themed, scriptable, Claude-Code-friendly.",
   "type": "module",
   "bin": {
-    "carousel-kit": "./bin/carousel-kit.js"
+    "postkit": "./bin/postkit.js"
   },
   "files": [
     "bin",
@@ -15,10 +15,10 @@
     "LICENSE"
   ],
   "scripts": {
-    "render": "node bin/carousel-kit.js render",
-    "new": "node bin/carousel-kit.js new",
-    "init": "node bin/carousel-kit.js init",
-    "watch": "node bin/carousel-kit.js watch"
+    "render": "node bin/postkit.js render",
+    "new": "node bin/postkit.js new",
+    "init": "node bin/postkit.js init",
+    "watch": "node bin/postkit.js watch"
   },
   "keywords": [
     "carousel",
@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Trystan-SA/social-carousel-bot-creator.git"
+    "url": "https://github.com/Trystan-SA/postkit.git"
   },
   "engines": {
     "node": ">=20"

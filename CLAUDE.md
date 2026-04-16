@@ -1,15 +1,15 @@
-# CLAUDE.md — carousel-kit (contributor guide)
+# CLAUDE.md — postkit (contributor guide)
 
-This file tells Claude Code how to navigate and contribute to the carousel-kit codebase itself. If you're a **user** who scaffolded a project with `carousel-kit init`, the CLAUDE.md in your own project is a different file (copied from `templates/project/CLAUDE.md`).
+This file tells Claude Code how to navigate and contribute to the postkit codebase itself. If you're a **user** who scaffolded a project with `postkit init`, the CLAUDE.md in your own project is a different file (copied from `templates/project/CLAUDE.md`).
 
 ## What this repo is
 
-A CLI + Puppeteer pipeline that renders HTML/CSS slide decks to PNG at native social-media export dimensions (9:16, 4:5, 1:1, 16:9, 3:4). Users scaffold a project with `carousel-kit init`, create posts with `carousel-kit new`, and render with `carousel-kit render`.
+A CLI + Puppeteer pipeline that renders HTML/CSS slide decks to PNG at native social-media export dimensions (9:16, 4:5, 1:1, 16:9, 3:4). Users scaffold a project with `postkit init`, create posts with `postkit new`, and render with `postkit render`.
 
 ## Repo map
 
 ```
-bin/carousel-kit.js   CLI shebang; boots src/cli.js
+bin/postkit.js        CLI shebang; boots src/cli.js
 src/
   cli.js              Arg parsing + command dispatch
   render.js           Puppeteer rendering core (the hot path)
@@ -39,7 +39,7 @@ When changing the default theme, always also render `examples/quickstart/` and e
 
 ```bash
 npm install
-./bin/carousel-kit.js render examples/quickstart
+./bin/postkit.js render examples/quickstart
 open examples/quickstart/output/slide-1.png
 ```
 

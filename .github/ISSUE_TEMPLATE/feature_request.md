@@ -5,7 +5,7 @@ labels: enhancement
 ---
 
 **The problem**
-What are you trying to do that carousel-kit makes hard today?
+What are you trying to do that postkit makes hard today?
 
 **Proposed solution**
 What would you want the tool to do? Sketch the CLI / API if you can.

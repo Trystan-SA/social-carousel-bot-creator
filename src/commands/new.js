@@ -11,7 +11,7 @@ async function exists(p) {
 }
 
 export async function newPost(slug, { format = DEFAULT_FORMAT, cwd = process.cwd() } = {}) {
-  if (!slug) throw new Error("Usage: carousel-kit new <slug> [--format 9:16]");
+  if (!slug) throw new Error("Usage: postkit new <slug> [--format 9:16]");
   if (!FORMATS[format]) {
     throw new Error(`Unknown format "${format}". Valid: ${Object.keys(FORMATS).join(", ")}`);
   }
@@ -31,23 +31,23 @@ export async function newPost(slug, { format = DEFAULT_FORMAT, cwd = process.cwd
 
   await mkdir(dest, { recursive: true });
 
-  // Write carousel.json with the requested format
+  // Write post.json with the requested format
   await writeFile(
-    join(dest, "carousel.json"),
+    join(dest, "post.json"),
     JSON.stringify({ format, slug }, null, 2) + "\n"
   );
 
   // Copy slide templates
   for (const file of await readdir(templateDir)) {
-    if (file === "carousel.json") continue;
+    if (file === "post.json") continue;
     await copyFile(join(templateDir, file), join(dest, file));
   }
 
-  console.log(`carousel-kit · created ${dest}`);
+  console.log(`postkit · created ${dest}`);
   console.log(`  format: ${format} (${FORMATS[format].width}×${FORMATS[format].height})`);
   console.log(`
 Next:
   1. Edit the slide-*.html files
-  2. Render:  carousel-kit render posts/${slug}
+  2. Render:  postkit render posts/${slug}
 `);
 }

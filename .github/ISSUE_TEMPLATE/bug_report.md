@@ -11,11 +11,11 @@ A clear, concise description of the bug.
 What you thought would happen.
 
 **Repro steps**
-1. `carousel-kit …`
+1. `postkit …`
 2. …
 
 **Environment**
-- carousel-kit version: `npx carousel-kit version`
+- postkit version: `npx postkit version`
 - Node version: `node -v`
 - OS: (macOS / Ubuntu / WSL2 / Docker)
 - Chrome source: bundled Puppeteer binary / system Chrome (`$PUPPETEER_EXECUTABLE_PATH`)

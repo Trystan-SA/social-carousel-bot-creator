@@ -4,7 +4,7 @@
 
 ## How I tested
 
-- [ ] `node bin/carousel-kit.js render examples/quickstart` — PNGs look correct
+- [ ] `node bin/postkit.js render examples/quickstart` — PNGs look correct
 - [ ] Added/updated an example if the change affects rendering
 - [ ] Updated `README.md` if a CLI command or flag changed
 

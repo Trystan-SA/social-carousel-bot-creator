@@ -1,10 +1,10 @@
-/* carousel-kit — default theme (neutral, override in theme.css) */
+/* postkit — default theme (neutral, override in theme.css) */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap');
 
 /* ── Tokens ── */
 :root {
-  /* Slide dimensions — overridden per-post via carousel.json → injected inline by renderer */
+  /* Slide dimensions — overridden per-post via post.json → injected inline by renderer */
   --slide-width: 1080px;
   --slide-height: 1920px;
 

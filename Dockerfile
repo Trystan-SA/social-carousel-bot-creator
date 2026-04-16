@@ -18,5 +18,5 @@ COPY src ./src
 COPY templates ./templates
 
 # Default entrypoint: the CLI. Usage:
-#   docker run --rm -v "$PWD":/work -w /work carousel-kit render posts/my-post
-ENTRYPOINT ["node", "/app/bin/carousel-kit.js"]
+#   docker run --rm -v "$PWD":/work -w /work postkit render posts/my-post
+ENTRYPOINT ["node", "/app/bin/postkit.js"]

@@ -33,13 +33,13 @@ async function version() {
 }
 
 function usage() {
-  return `carousel-kit — generate social-media carousels from HTML/CSS
+  return `postkit — generate social-media carousels from HTML/CSS
 
 Usage:
-  carousel-kit <command> [options]
+  postkit <command> [options]
 
 Commands:
-  init                          Scaffold a carousel-kit project in the current directory
+  init                          Scaffold a postkit project in the current directory
   new <slug> [--format 9:16]    Create a new post folder with starter slides
   render <post-folder>          Render slides in <post-folder> to PNG
   watch <post-folder>           Re-render automatically on file change
@@ -47,10 +47,10 @@ Commands:
   version                       Print the installed version
 
 Examples:
-  carousel-kit init
-  carousel-kit new intro-post --format 9:16
-  carousel-kit render posts/intro-post
-  carousel-kit watch posts/intro-post
+  postkit init
+  postkit new intro-post --format 9:16
+  postkit render posts/intro-post
+  postkit watch posts/intro-post
 `;
 }
 

@@ -8,12 +8,12 @@ async function exists(p) {
 }
 
 async function loadConfig(postDir) {
-  const configPath = join(postDir, "carousel.json");
+  const configPath = join(postDir, "post.json");
   if (!(await exists(configPath))) return {};
   try {
     return JSON.parse(await readFile(configPath, "utf8"));
   } catch (err) {
-    throw new Error(`Invalid carousel.json in ${postDir}: ${err.message}`);
+    throw new Error(`Invalid post.json in ${postDir}: ${err.message}`);
   }
 }
 
@@ -39,7 +39,7 @@ export async function renderPost(postDir, { formatOverride, verbose = true } = {
   }
 
   if (verbose) {
-    console.log(`carousel-kit · rendering ${files.length} slide(s) at ${width}×${height}`);
+    console.log(`postkit · rendering ${files.length} slide(s) at ${width}×${height}`);
   }
 
   const launchOptions = {

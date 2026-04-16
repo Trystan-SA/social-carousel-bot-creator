@@ -1,6 +1,6 @@
-# Carousel project — Claude Code guide
+# Postkit project — Claude Code guide
 
-This project uses [carousel-kit](https://github.com/Trystan-SA/social-carousel-bot-creator) (published on npm as `social-carousel-bot-creator`) to render social-media carousels from HTML/CSS. This file tells Claude Code how to help you create posts.
+This project uses [postkit](https://github.com/Trystan-SA/postkit) (published on npm as `postkit`) to render social-media carousels from HTML/CSS. This file tells Claude Code how to help you create posts.
 
 > **Customize this file.** Replace the placeholder sections below with your real brand, audience, and goals. The richer this doc, the better Claude can draft posts that sound like you.
 
@@ -28,7 +28,7 @@ Defined in `theme.css` at the project root. Tokens worth knowing:
 
 - `--primary`, `--accent`, `--bg`, `--text` — core palette
 - `--font-display`, `--font-body`, `--font-handwritten` — type
-- `--slide-width`, `--slide-height` — set by the renderer from `carousel.json`
+- `--slide-width`, `--slide-height` — set by the renderer from `post.json`
 
 Edit `theme.css` to change brand colors / fonts / radii globally. Per-slide overrides go in a `<style>` block inside the slide HTML.
 
@@ -64,10 +64,10 @@ Always gather context first:
 ### 2. Scaffold the post
 
 ```bash
-carousel-kit new <slug> --format 9:16
+postkit new <slug> --format 9:16
 ```
 
-This creates `posts/<slug>/` with `carousel.json` and starter slides.
+This creates `posts/<slug>/` with `post.json` and starter slides.
 
 ### 3. Write the slides
 
@@ -81,7 +81,7 @@ Slide anatomy:
 
 ### 4. (Optional) Run the expert review pipeline
 
-If you have `agents/` populated (from `carousel-kit init`), run the three-expert sequential review on your first draft:
+If you have `agents/` populated (from `postkit init`), run the three-expert sequential review on your first draft:
 
 1. **Strategist** — hook, angle, format fit, value arc, audience, goal alignment
 2. **Copywriter** — CTA, word economy, slide transitions, emotional triggers, tone
@@ -92,9 +92,9 @@ Each expert returns HIGH / MEDIUM / LOW findings. Apply HIGH impact items; log t
 ### 5. Render and iterate
 
 ```bash
-carousel-kit render posts/<slug>
+postkit render posts/<slug>
 # or, for live reload while editing:
-carousel-kit watch posts/<slug>
+postkit watch posts/<slug>
 ```
 
 Output PNGs land in `posts/<slug>/output/`.
