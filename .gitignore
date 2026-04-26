@@ -14,10 +14,11 @@ assets/*
 # Personal playbooks
 strategy.md
 CLAUDE.local.md
-.claude/
-# …but the scaffold template's skills must ship in the npm package.
-!templates/project/.claude/
-!templates/project/.claude/**
+# Ignore Claude Code local state, but keep the repo's own skills folder.
+/.claude/*
+!/.claude/skills/
+# Inside templates/, .claude/ ships verbatim so users get the skills.
+# (templates/ is not under .claude/, so nothing to re-include here.)
 
 # Editor / tooling
 .vscode/
